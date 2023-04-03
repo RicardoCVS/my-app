@@ -9,13 +9,21 @@ import { Container, Typography } from '@mui/material';
 function App() {
   return (
     <Container maxWidth="md">
-      <Typography variant="h3" component="h1" align="center" gutterBottom>
+      <Typography
+        variant="h3"
+        component="h1"
+        align="center"
+        gutterBottom
+        className="neon-title"
+      >
         Usuarios de la API
       </Typography>
       <ApiData />
     </Container>
   );
 }
+
+
 
 
 export default App;
