@@ -8,7 +8,9 @@ import {
   List,
   ListItem,
   ListItemText,
+  CircularProgress,
 } from "@mui/material";
+
 import SendIcon from "@mui/icons-material/Send";
 import openai from "./openai";
 import "./Chat.css";
@@ -16,6 +18,7 @@ import "./Chat.css";
 function Chat() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false); // estado para mostrar el CircularProgress
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -34,6 +37,7 @@ function Chat() {
     ]);
     const prompt = input;
     setInput("");
+    setLoading(true); // mostramos el CircularProgress
 
     try {
       const response = await openai.post("/davinci/completions", {
@@ -51,6 +55,8 @@ function Chat() {
       ]);
     } catch (error) {
       console.error("Error al llamar a la API de OpenAI:", error);
+    } finally {
+      setLoading(false); // ocultamos el CircularProgress
     }
   };
 
@@ -88,6 +94,12 @@ function Chat() {
             <IconButton type="submit" color="primary">
               <SendIcon />
             </IconButton>
+            {loading && (
+                <Box className="chat-loading">
+                    <CircularProgress color="secondary" size={60} />
+                </Box>
+                )}
+
           </Box>
         </form>
       </Box>
