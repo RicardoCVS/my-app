@@ -3,8 +3,9 @@ import logo from "./logo.svg";
 import "./App.css";
 import MiComponente from "./MiComponente";
 import ApiData from "./ApiData";
-import { Container, Typography } from "@mui/material";
+import { Container, Typography, Grid } from "@mui/material";
 import IndexMenu from "./IndexMenu";
+import Chat from "./Chat";
 
 function App() {
   const [apiDataItems, setApiDataItems] = useState([]);
@@ -30,8 +31,15 @@ function App() {
       >
         Usuarios de la API
       </Typography>
-      <ApiData />
-      {apiDataItems.length > 0 && <IndexMenu items={apiDataItems} />}
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={8}>
+          <ApiData />
+          {apiDataItems.length > 0 && <IndexMenu items={apiDataItems} />}
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <Chat />
+        </Grid>
+      </Grid>
     </Container>
   );
 }
